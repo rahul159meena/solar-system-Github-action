@@ -80,4 +80,17 @@ jobs:
             name: Code-Coverage-Result
             path: coverage
             retention-days: 5
+    docker:
+      name: containerization
+      needs: [unit-testing, code-coverage]
+      runs-on: ubtuntu-latest
+      steps:
+      - name: checkout-repo
+        uses: actions/checkout@v4
+
+      - name: Dockerhub Login
+        uses: docker/login-action@v2.2.0
+        with:
+          username: ${{ var.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
   
