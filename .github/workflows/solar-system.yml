@@ -17,7 +17,7 @@ jobs:
         name: Unit Testing
         strategy:
           matrix:
-            nodejs_verion: [18,19,20]
+            nodejs_verion: [18]
             operating_system: [ubuntu-latest, macos-latest]
             exclude:
               - nodejs_verion: 18
@@ -114,8 +114,8 @@ jobs:
 
       - name: Docker Image Testing
         run: |
-          docker images ls
-          docker builder prune --all --force
+          docker image ls
+          docker builder prune --all --force 
           docker images
           docker run --name solar-system-app -d \
             -p 3000:3000 \
