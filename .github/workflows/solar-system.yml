@@ -111,7 +111,7 @@ jobs:
           docker image prune --all --force
       
       - name: Docker Build for testing
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v4
         with:
           context: .
           push: false
@@ -139,7 +139,7 @@ jobs:
           wget -q -O - 127.0.0.1:3000/live | grep live
 
       - name: Container Registry push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v4
         with:
           context: .
           push: true
