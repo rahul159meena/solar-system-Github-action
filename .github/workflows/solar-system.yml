@@ -110,10 +110,11 @@ jobs:
           context: .
           push: false
           tags: ${{ vars.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
+          no-cache: true
 
       - name: Docker Image Testing
         run: |
-          docker images ls -a
+          docker images ls
           docker builder prune --all --force
           docker images
           docker run --name solar-system-app -d \
