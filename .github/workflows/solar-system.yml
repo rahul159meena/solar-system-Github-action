@@ -103,6 +103,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+        
+      - name: Clean Docker Environment
+        run: |
+          docker system prune --all --force
+          docker builder prune --all --force
+          docker image prune --all --force
       
       - name: Docker Build for testing
         uses: docker/build-push-action@v6
@@ -112,10 +118,12 @@ jobs:
           tags: ${{ vars.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
           no-cache: true
 
+      - name: Verify Docker Image
+        run: |
+          docker inspect ${{ vars.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
+
       - name: Docker Image Testing
         run: |
-          docker image ls
-          docker builder prune --all --force 
           docker images
           docker run --name solar-system-app -d \
             -p 3000:3000 \
