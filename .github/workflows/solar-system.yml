@@ -113,7 +113,8 @@ jobs:
 
       - name: Docker Image Testing
         run: |
-          docker builder prune --all
+          docker images ls -a
+          docker builder prune --all --force
           docker images
           docker run --name solar-system-app -d \
             -p 3000:3000 \
